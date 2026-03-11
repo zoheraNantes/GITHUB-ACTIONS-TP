@@ -13,7 +13,7 @@ jobs:
         needs: ci #bloqué tant que CI ne passe pas
         runs-on: ubuntu-latest
         environment: staging
- 
+
         steps:
             - uses: actions/checkout@v4
  
@@ -23,3 +23,19 @@ jobs:
               run: |
                   echo "Deploying to staging"
                   echo "triggered by: ${{ github.actor}}"
+
+
+        deploy-production:
+            needs: deploy-staging
+            runs-on: ubuntu-latest
+            environment: production
+
+            # steps:
+            #     - uses: actions/checkout@v4
+
+            #     - name: Deploy to production
+            #         env:
+            #             API_KEY_PRODUCTION: ${{ secrets.API_KEY}}
+            #         run: |
+            #             echo "Deploying to production"
+            #             echo "triggered by: ${{ github.actor}}"
